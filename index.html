@@ -179,6 +179,169 @@ body:has(input.task[data-id="task-0"]:checked) #overallbar [data-task="task-0"]{
 }
 </style>
 
+
+<style id="cross-platform-layout">
+/* =========================================================
+   Cross-platform layout
+   iPhone/iPad: unchanged in principle
+   Android: responsive touch layout
+   Windows: full-width desktop layout without horizontal scroll
+   ========================================================= */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* The content is intentionally a single vertical list.
+   This prevents phase cards from becoming narrow columns on desktop. */
+#content {
+  display: block !important;
+  width: 100%;
+  max-width: 100%;
+}
+
+details.phase {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100%;
+}
+
+/* Controls must wrap instead of creating a horizontal scrollbar. */
+.controls {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  overflow: visible !important;
+  width: 100%;
+  align-items: stretch;
+}
+
+.controls button {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 700px) {
+  main {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  header main {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .dashboard {
+    grid-template-columns: 1fr !important;
+  }
+
+  .boxes {
+    grid-template-columns: 1fr !important;
+  }
+
+  .controls {
+    gap: 7px;
+  }
+
+  .controls button {
+    min-height: 44px;
+  }
+
+  .phase {
+    margin: 12px 0;
+  }
+
+  .phase-summary {
+    width: 100%;
+  }
+}
+
+/* Tablets and normal Windows notebooks */
+@media (min-width: 701px) and (max-width: 1199px) {
+  main {
+    max-width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .dashboard {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard .stat:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .boxes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Large Windows displays */
+@media (min-width: 1200px) {
+  main {
+    max-width: 1180px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .dashboard {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .phase {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .boxes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Never let long URLs or legal text force horizontal scrolling. */
+p, li, .phase-title, .phase-body, .legal-section {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+/* Windows keyboard accessibility */
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible,
+a:focus-visible {
+  outline: 3px solid rgba(31,78,121,.35);
+  outline-offset: 2px;
+}
+
+/* Printing on Windows */
+@media print {
+  .controls {
+    display: none !important;
+  }
+
+  details.phase {
+    break-inside: avoid;
+  }
+
+  .legal-section {
+    break-before: page;
+  }
+
+  a {
+    color: #000 !important;
+    text-decoration: underline;
+  }
+}
+</style>
+
 </head>
 <body>
 <header><main><h1>Geografie Klasse 6</h1><p>Wöchentlicher Lernplan · Schuljahr 2026/27</p>
@@ -194,6 +357,12 @@ body:has(input.task[data-id="task-0"]:checked) #overallbar [data-task="task-0"]{
 <button onclick="window.scrollTo({top:0,behavior:'smooth'})">Nach oben</button>
 <button onclick="resetAll()">Fortschritt löschen</button>
 </div>
+
+<div class="notice cross-platform-note">
+  <strong>Geräte:</strong> Die Lernseite ist für iPhone/iPad, Android-Smartphones
+  und -Tablets sowie Windows-PCs mit aktuellen Browsern optimiert.
+</div>
+
 <div class="notice"><strong>Hinweis:</strong> Die Checkboxen speichern den Lernfortschritt auf diesem Gerät. Die Ferien sind lernfreie Zeiten. Die 15-Minuten-Vertiefung ist als Anwendung, Wiederholung oder Skizze gedacht.</div>
 <div id="content"><details class="phase"><summary class="phase-summary"><div class="phase-title"><h2>1. Europa im Überblick</h2><p>05.10.–09.11.2026 · TERRA 6 S. 4–20 · Arbeitsheft S. 1–2 und 12–13</p></div><div class="phase-summary-pct"><span>Fortschritt</span><strong>Fortschritt</strong><div class="bar segmented"><span class="segfill"><i class="phase-seg" data-task="task-0"></i><i class="phase-seg" data-task="task-1"></i><i class="phase-seg" data-task="task-2"></i><i class="phase-seg" data-task="task-3"></i><i class="phase-seg" data-task="task-4"></i><i class="phase-seg" data-task="task-5"></i><i class="phase-seg" data-task="task-6"></i><i class="phase-seg" data-task="task-7"></i><i class="phase-seg" data-task="task-8"></i><i class="phase-seg" data-task="task-9"></i><i class="phase-seg" data-task="task-10"></i><i class="phase-seg" data-task="task-11"></i></span></div></summary><div class="phase-body"></div>
 <article class="week" data-date="05.10.2026">
