@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="de"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#1f4e79">
+<title>Geografie Klasse 6 – Lernplan</title>
+<style>
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:#f4f6f8}
+body{margin:0;background:#f4f6f8;color:#1f2937;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.45}
+header{background:#1f4e79;color:white;padding:28px 16px}
+header main{padding-top:max(0px,env(safe-area-inset-top))}
+main{max-width:1100px;margin:auto;padding:16px}
+h1{font-size:clamp(1.5rem,6vw,2.2rem);margin:0 0 6px}
+header p{margin:0;opacity:.9}
+.dashboard{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.stat,.phase,.holiday{background:white;border:1px solid #d9dee5;border-radius:12px;box-shadow:0 2px 8px rgba(16,24,40,.05)}
+.stat{padding:14px}.label{font-size:.8rem;color:#667085}.value{font-size:1.35rem;font-weight:700;margin:3px 0}
+.bar{height:9px;background:#e9edf1;border-radius:20px;overflow:hidden}.bar i{display:block;height:100%;width:0;min-width:0;background:#1f4e79;border-radius:20px;transition:width .25s ease}
+.stat:nth-child(2) .bar i{background:#4f7d5b}
+.controls{display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px;position:sticky;top:0;background:rgba(244,246,248,.96);z-index:10}
+button,select{min-height:44px;padding:9px 12px;border:1px solid #cdd4dc;border-radius:9px;background:#fff;font:inherit;white-space:nowrap}
+button.primary{background:#1f4e79;color:white;border-color:#1f4e79}
+.notice{background:#e8f0f7;border-left:4px solid #1f4e79;padding:12px 14px;border-radius:8px;margin-bottom:16px}
+.phase{margin:16px 0;overflow:hidden}.phase-head{padding:15px;background:#f8fafc;border-bottom:1px solid #e2e6eb;display:flex;gap:16px;justify-content:space-between}
+.phase-head h2{margin:0;font-size:1.08rem}.phase-head p{margin:4px 0 0;color:#667085;font-size:.82rem}.phase-pct{min-width:160px}.phase-pct span{font-size:.75rem;color:#667085}.phase-pct strong{display:block;font-size:.9rem}
+.week{padding:15px;border-bottom:1px solid #edf0f3}.week:last-child{border-bottom:0}.week-date{font-size:.78rem;color:#667085}.week h3{margin:2px 0 10px;font-size:1rem}
+.boxes{display:grid;grid-template-columns:1fr 1fr;gap:10px}.box{border:1px solid #d9dee5;border-radius:9px;padding:12px;background:#fff}.box h4{font-size:.88rem;margin:0 0 7px}.box p{margin:0;font-size:.92rem}
+ul{list-style:none;margin:0;padding:0}li{margin:4px 0}label{display:flex;gap:9px;align-items:flex-start;min-height:40px;padding:5px 0}
+input.task{width:22px;height:22px;flex:0 0 auto;accent-color:#4f7d5b;margin:0}label.done span{text-decoration:line-through;color:#7b8794}
+.holidays{margin:16px 0}.holidays h2{font-size:1.08rem}.holiday{padding:12px 14px;margin:8px 0;box-shadow:none}.holiday strong{display:block}.holiday span{font-size:.85rem;color:#667085}
+footer{text-align:center;color:#667085;font-size:.8rem;padding:20px 0 calc(20px + env(safe-area-inset-bottom))}
+@media(max-width:700px){.dashboard{grid-template-columns:1fr}.boxes{grid-template-columns:1fr}.phase-head{display:block}.phase-pct{margin-top:10px}main{padding:12px}}
+
+.segmented{display:flex;gap:2px;padding:1px;background:#e9edf1;overflow:hidden}.segmented .segfill{display:flex;gap:2px;width:100%;height:100%}.segmented i{display:block!important;flex:1 1 0!important;width:auto!important;min-width:0!important;height:100%!important;background:#dfe4e9;border-radius:2px!important;transition:background .15s ease}.segmented.overall i{background:#dfe4e9}.phase-pct .segmented{margin-top:4px;height:9px}.stat .segmented{height:9px}
+</style>
+<style>
+details.phase{margin:16px 0;background:#fff;border:1px solid #d9dee5;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(16,24,40,.05)}
+details.phase>summary.phase-summary{display:block;cursor:pointer;list-style:none;padding:15px;background:#f8fafc;position:relative;padding-right:48px}
+details.phase>summary.phase-summary::-webkit-details-marker{display:none}
+details.phase>summary.phase-summary:after{content:"＋";position:absolute;right:15px;top:15px;font-size:24px;line-height:24px}
+details.phase[open]>summary.phase-summary:after{content:"−"}
+.phase-title h2{margin:0;font-size:1.08rem}
+.phase-title p{margin:4px 0 0;color:#667085;font-size:.82rem}
+.phase-summary-pct{margin-top:10px}
+.phase-body{padding:0}
+.phase-body .week{padding:15px}
+@media(max-width:700px){details.phase>summary.phase-summary{padding:14px 45px 14px 13px}}
+</style>
+
+
+<style>
+details.phase {
+  margin:16px 0;
+  background:#fff;
+  border:1px solid #d9dee5;
+  border-radius:12px;
+  overflow:hidden;
+}
+details.phase>summary.phase-summary {
+  display:block;
+  cursor:pointer;
+  list-style:none;
+  padding:15px;
+  background:#f8fafc;
+  position:relative;
+  padding-right:48px;
+}
+details.phase>summary.phase-summary::-webkit-details-marker {display:none;}
+details.phase>summary.phase-summary:after {
+  content:"＋";
+  position:absolute;
+  right:15px;
+  top:15px;
+  font-size:24px;
+  line-height:24px;
+}
+details.phase[open]>summary.phase-summary:after {content:"−";}
+
+.ios-progress {
+  margin:10px 0 18px;
+  padding:12px;
+  background:#f8fafc;
+  border:1px solid #e1e6eb;
+  border-radius:10px;
+}
+.ios-progress-label {font-weight:700;margin-bottom:7px;}
+.ios-progress-segments {
+  display:grid;
+  grid-template-columns:repeat(22,1fr);
+  gap:2px;
+  width:100%;
+  height:12px;
+}
+.ios-progress-segments span {
+  display:block;
+  min-width:0;
+  background:#e5e9ed;
+  border-radius:2px;
+}
+.ios-progress-hint {
+  margin-top:6px;
+  color:#667085;
+  font-size:.75rem;
+}
+body:has(input.task[data-id="task-0"]:checked) #seg-0{background:#1f4e79;}body:has(input.task[data-id="task-1"]:checked) #seg-1{background:#1f4e79;}body:has(input.task[data-id="task-2"]:checked) #seg-2{background:#1f4e79;}body:has(input.task[data-id="task-3"]:checked) #seg-3{background:#1f4e79;}body:has(input.task[data-id="task-4"]:checked) #seg-4{background:#1f4e79;}body:has(input.task[data-id="task-5"]:checked) #seg-5{background:#1f4e79;}body:has(input.task[data-id="task-6"]:checked) #seg-6{background:#1f4e79;}body:has(input.task[data-id="task-7"]:checked) #seg-7{background:#1f4e79;}body:has(input.task[data-id="task-8"]:checked) #seg-8{background:#1f4e79;}body:has(input.task[data-id="task-9"]:checked) #seg-9{background:#1f4e79;}body:has(input.task[data-id="task-10"]:checked) #seg-10{background:#1f4e79;}body:has(input.task[data-id="task-11"]:checked) #seg-11{background:#1f4e79;}body:has(input.task[data-id="task-12"]:checked) #seg-12{background:#1f4e79;}body:has(input.task[data-id="task-13"]:checked) #seg-13{background:#1f4e79;}body:has(input.task[data-id="task-14"]:checked) #seg-14{background:#1f4e79;}body:has(input.task[data-id="task-15"]:checked) #seg-15{background:#1f4e79;}body:has(input.task[data-id="task-16"]:checked) #seg-16{background:#1f4e79;}body:has(input.task[data-id="task-17"]:checked) #seg-17{background:#1f4e79;}body:has(input.task[data-id="task-18"]:checked) #seg-18{background:#1f4e79;}body:has(input.task[data-id="task-19"]:checked) #seg-19{background:#1f4e79;}body:has(input.task[data-id="task-20"]:checked) #seg-20{background:#1f4e79;}body:has(input.task[data-id="task-21"]:checked) #seg-21{background:#1f4e79;}body:has(input.task[data-id="task-22"]:checked) #seg-22{background:#1f4e79;}body:has(input.task[data-id="task-23"]:checked) #seg-23{background:#1f4e79;}body:has(input.task[data-id="task-24"]:checked) #seg-24{background:#1f4e79;}body:has(input.task[data-id="task-25"]:checked) #seg-25{background:#1f4e79;}body:has(input.task[data-id="task-26"]:checked) #seg-26{background:#1f4e79;}body:has(input.task[data-id="task-27"]:checked) #seg-27{background:#1f4e79;}body:has(input.task[data-id="task-28"]:checked) #seg-28{background:#1f4e79;}body:has(input.task[data-id="task-29"]:checked) #seg-29{background:#1f4e79;}body:has(input.task[data-id="task-30"]:checked) #seg-30{background:#1f4e79;}body:has(input.task[data-id="task-31"]:checked) #seg-31{background:#1f4e79;}body:has(input.task[data-id="task-32"]:checked) #seg-32{background:#1f4e79;}body:has(input.task[data-id="task-33"]:checked) #seg-33{background:#1f4e79;}body:has(input.task[data-id="task-34"]:checked) #seg-34{background:#1f4e79;}body:has(input.task[data-id="task-35"]:checked) #seg-35{background:#1f4e79;}body:has(input.task[data-id="task-36"]:checked) #seg-36{background:#1f4e79;}body:has(input.task[data-id="task-37"]:checked) #seg-37{background:#1f4e79;}body:has(input.task[data-id="task-38"]:checked) #seg-38{background:#1f4e79;}body:has(input.task[data-id="task-39"]:checked) #seg-39{background:#1f4e79;}body:has(input.task[data-id="task-40"]:checked) #seg-40{background:#1f4e79;}body:has(input.task[data-id="task-41"]:checked) #seg-41{background:#1f4e79;}body:has(input.task[data-id="task-42"]:checked) #seg-42{background:#1f4e79;}body:has(input.task[data-id="task-43"]:checked) #seg-43{background:#1f4e79;}body:has(input.task[data-id="task-44"]:checked) #seg-44{background:#1f4e79;}body:has(input.task[data-id="task-45"]:checked) #seg-45{background:#1f4e79;}body:has(input.task[data-id="task-46"]:checked) #seg-46{background:#1f4e79;}body:has(input.task[data-id="task-47"]:checked) #seg-47{background:#1f4e79;}body:has(input.task[data-id="task-48"]:checked) #seg-48{background:#1f4e79;}body:has(input.task[data-id="task-49"]:checked) #seg-49{background:#1f4e79;}body:has(input.task[data-id="task-50"]:checked) #seg-50{background:#1f4e79;}body:has(input.task[data-id="task-51"]:checked) #seg-51{background:#1f4e79;}body:has(input.task[data-id="task-52"]:checked) #seg-52{background:#1f4e79;}body:has(input.task[data-id="task-53"]:checked) #seg-53{background:#1f4e79;}body:has(input.task[data-id="task-54"]:checked) #seg-54{background:#1f4e79;}body:has(input.task[data-id="task-55"]:checked) #seg-55{background:#1f4e79;}body:has(input.task[data-id="task-56"]:checked) #seg-56{background:#1f4e79;}body:has(input.task[data-id="task-57"]:checked) #seg-57{background:#1f4e79;}body:has(input.task[data-id="task-58"]:checked) #seg-58{background:#1f4e79;}body:has(input.task[data-id="task-59"]:checked) #seg-59{background:#1f4e79;}body:has(input.task[data-id="task-60"]:checked) #seg-60{background:#1f4e79;}body:has(input.task[data-id="task-61"]:checked) #seg-61{background:#1f4e79;}body:has(input.task[data-id="task-62"]:checked) #seg-62{background:#1f4e79;}body:has(input.task[data-id="task-63"]:checked) #seg-63{background:#1f4e79;}body:has(input.task[data-id="task-64"]:checked) #seg-64{background:#1f4e79;}body:has(input.task[data-id="task-65"]:checked) #seg-65{background:#1f4e79;}body:has(input.task[data-id="task-66"]:checked) #seg-66{background:#1f4e79;}body:has(input.task[data-id="task-67"]:checked) #seg-67{background:#1f4e79;}body:has(input.task[data-id="task-68"]:checked) #seg-68{background:#1f4e79;}body:has(input.task[data-id="task-69"]:checked) #seg-69{background:#1f4e79;}body:has(input.task[data-id="task-70"]:checked) #seg-70{background:#1f4e79;}body:has(input.task[data-id="task-71"]:checked) #seg-71{background:#1f4e79;}body:has(input.task[data-id="task-72"]:checked) #seg-72{background:#1f4e79;}body:has(input.task[data-id="task-73"]:checked) #seg-73{background:#1f4e79;}body:has(input.task[data-id="task-74"]:checked) #seg-74{background:#1f4e79;}body:has(input.task[data-id="task-75"]:checked) #seg-75{background:#1f4e79;}body:has(input.task[data-id="task-76"]:checked) #seg-76{background:#1f4e79;}body:has(input.task[data-id="task-77"]:checked) #seg-77{background:#1f4e79;}body:has(input.task[data-id="task-78"]:checked) #seg-78{background:#1f4e79;}body:has(input.task[data-id="task-79"]:checked) #seg-79{background:#1f4e79;}body:has(input.task[data-id="task-80"]:checked) #seg-80{background:#1f4e79;}body:has(input.task[data-id="task-81"]:checked) #seg-81{background:#1f4e79;}body:has(input.task[data-id="task-82"]:checked) #seg-82{background:#1f4e79;}body:has(input.task[data-id="task-83"]:checked) #seg-83{background:#1f4e79;}body:has(input.task[data-id="task-84"]:checked) #seg-84{background:#1f4e79;}body:has(input.task[data-id="task-85"]:checked) #seg-85{background:#1f4e79;}body:has(input.task[data-id="task-86"]:checked) #seg-86{background:#1f4e79;}body:has(input.task[data-id="task-87"]:checked) #seg-87{background:#1f4e79;}
+</style>
+
+
+<style>
+/* JavaScript-independent checked-state styling for iPhone */
+label:has(input.task:checked) {
+  background:#eef5fb !important;
+  border-color:#9bbbd7 !important;
+}
+label:has(input.task:checked) .task-text {
+  text-decoration:line-through;
+  opacity:.65;
+}
+</style>
+
+
+<style>
+/* Version 6: visual progress works without JavaScript in modern iOS WebKit. */
+#overallbar .overall-seg,
+.phase-summary-pct .phase-seg {
+  display:inline-block;
+  background:#dfe4e9;
+  border-radius:3px;
+  height:100%;
+}
+body:has(input.task[data-id="task-0"]:checked) #overallbar [data-task="task-0"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-0"]:checked) [data-task="task-0"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-1"]:checked) #overallbar [data-task="task-1"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-1"]:checked) [data-task="task-1"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-2"]:checked) #overallbar [data-task="task-2"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-2"]:checked) [data-task="task-2"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-3"]:checked) #overallbar [data-task="task-3"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-3"]:checked) [data-task="task-3"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-4"]:checked) #overallbar [data-task="task-4"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-4"]:checked) [data-task="task-4"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-5"]:checked) #overallbar [data-task="task-5"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-5"]:checked) [data-task="task-5"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-6"]:checked) #overallbar [data-task="task-6"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-6"]:checked) [data-task="task-6"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-7"]:checked) #overallbar [data-task="task-7"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-7"]:checked) [data-task="task-7"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-8"]:checked) #overallbar [data-task="task-8"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-8"]:checked) [data-task="task-8"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-9"]:checked) #overallbar [data-task="task-9"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-9"]:checked) [data-task="task-9"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-10"]:checked) #overallbar [data-task="task-10"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-10"]:checked) [data-task="task-10"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-11"]:checked) #overallbar [data-task="task-11"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-11"]:checked) [data-task="task-11"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-12"]:checked) #overallbar [data-task="task-12"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-12"]:checked) [data-task="task-12"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-13"]:checked) #overallbar [data-task="task-13"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-13"]:checked) [data-task="task-13"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-14"]:checked) #overallbar [data-task="task-14"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-14"]:checked) [data-task="task-14"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-15"]:checked) #overallbar [data-task="task-15"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-15"]:checked) [data-task="task-15"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-16"]:checked) #overallbar [data-task="task-16"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-16"]:checked) [data-task="task-16"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-17"]:checked) #overallbar [data-task="task-17"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-17"]:checked) [data-task="task-17"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-18"]:checked) #overallbar [data-task="task-18"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-18"]:checked) [data-task="task-18"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-19"]:checked) #overallbar [data-task="task-19"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-19"]:checked) [data-task="task-19"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-20"]:checked) #overallbar [data-task="task-20"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-20"]:checked) [data-task="task-20"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-21"]:checked) #overallbar [data-task="task-21"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-21"]:checked) [data-task="task-21"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-22"]:checked) #overallbar [data-task="task-22"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-22"]:checked) [data-task="task-22"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-23"]:checked) #overallbar [data-task="task-23"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-23"]:checked) [data-task="task-23"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-24"]:checked) #overallbar [data-task="task-24"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-24"]:checked) [data-task="task-24"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-25"]:checked) #overallbar [data-task="task-25"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-25"]:checked) [data-task="task-25"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-26"]:checked) #overallbar [data-task="task-26"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-26"]:checked) [data-task="task-26"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-27"]:checked) #overallbar [data-task="task-27"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-27"]:checked) [data-task="task-27"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-28"]:checked) #overallbar [data-task="task-28"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-28"]:checked) [data-task="task-28"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-29"]:checked) #overallbar [data-task="task-29"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-29"]:checked) [data-task="task-29"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-30"]:checked) #overallbar [data-task="task-30"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-30"]:checked) [data-task="task-30"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-31"]:checked) #overallbar [data-task="task-31"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-31"]:checked) [data-task="task-31"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-32"]:checked) #overallbar [data-task="task-32"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-32"]:checked) [data-task="task-32"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-33"]:checked) #overallbar [data-task="task-33"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-33"]:checked) [data-task="task-33"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-34"]:checked) #overallbar [data-task="task-34"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-34"]:checked) [data-task="task-34"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-35"]:checked) #overallbar [data-task="task-35"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-35"]:checked) [data-task="task-35"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-36"]:checked) #overallbar [data-task="task-36"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-36"]:checked) [data-task="task-36"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-37"]:checked) #overallbar [data-task="task-37"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-37"]:checked) [data-task="task-37"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-38"]:checked) #overallbar [data-task="task-38"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-38"]:checked) [data-task="task-38"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-39"]:checked) #overallbar [data-task="task-39"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-39"]:checked) [data-task="task-39"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-40"]:checked) #overallbar [data-task="task-40"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-40"]:checked) [data-task="task-40"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-41"]:checked) #overallbar [data-task="task-41"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-41"]:checked) [data-task="task-41"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-42"]:checked) #overallbar [data-task="task-42"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-42"]:checked) [data-task="task-42"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-43"]:checked) #overallbar [data-task="task-43"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-43"]:checked) [data-task="task-43"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-44"]:checked) #overallbar [data-task="task-44"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-44"]:checked) [data-task="task-44"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-45"]:checked) #overallbar [data-task="task-45"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-45"]:checked) [data-task="task-45"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-46"]:checked) #overallbar [data-task="task-46"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-46"]:checked) [data-task="task-46"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-47"]:checked) #overallbar [data-task="task-47"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-47"]:checked) [data-task="task-47"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-48"]:checked) #overallbar [data-task="task-48"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-48"]:checked) [data-task="task-48"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-49"]:checked) #overallbar [data-task="task-49"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-49"]:checked) [data-task="task-49"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-50"]:checked) #overallbar [data-task="task-50"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-50"]:checked) [data-task="task-50"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-51"]:checked) #overallbar [data-task="task-51"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-51"]:checked) [data-task="task-51"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-52"]:checked) #overallbar [data-task="task-52"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-52"]:checked) [data-task="task-52"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-53"]:checked) #overallbar [data-task="task-53"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-53"]:checked) [data-task="task-53"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-54"]:checked) #overallbar [data-task="task-54"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-54"]:checked) [data-task="task-54"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-55"]:checked) #overallbar [data-task="task-55"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-55"]:checked) [data-task="task-55"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-56"]:checked) #overallbar [data-task="task-56"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-56"]:checked) [data-task="task-56"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-57"]:checked) #overallbar [data-task="task-57"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-57"]:checked) [data-task="task-57"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-58"]:checked) #overallbar [data-task="task-58"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-58"]:checked) [data-task="task-58"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-59"]:checked) #overallbar [data-task="task-59"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-59"]:checked) [data-task="task-59"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-60"]:checked) #overallbar [data-task="task-60"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-60"]:checked) [data-task="task-60"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-61"]:checked) #overallbar [data-task="task-61"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-61"]:checked) [data-task="task-61"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-62"]:checked) #overallbar [data-task="task-62"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-62"]:checked) [data-task="task-62"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-63"]:checked) #overallbar [data-task="task-63"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-63"]:checked) [data-task="task-63"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-64"]:checked) #overallbar [data-task="task-64"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-64"]:checked) [data-task="task-64"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-65"]:checked) #overallbar [data-task="task-65"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-65"]:checked) [data-task="task-65"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-66"]:checked) #overallbar [data-task="task-66"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-66"]:checked) [data-task="task-66"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-67"]:checked) #overallbar [data-task="task-67"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-67"]:checked) [data-task="task-67"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-68"]:checked) #overallbar [data-task="task-68"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-68"]:checked) [data-task="task-68"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-69"]:checked) #overallbar [data-task="task-69"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-69"]:checked) [data-task="task-69"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-70"]:checked) #overallbar [data-task="task-70"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-70"]:checked) [data-task="task-70"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-71"]:checked) #overallbar [data-task="task-71"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-71"]:checked) [data-task="task-71"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-72"]:checked) #overallbar [data-task="task-72"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-72"]:checked) [data-task="task-72"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-73"]:checked) #overallbar [data-task="task-73"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-73"]:checked) [data-task="task-73"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-74"]:checked) #overallbar [data-task="task-74"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-74"]:checked) [data-task="task-74"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-75"]:checked) #overallbar [data-task="task-75"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-75"]:checked) [data-task="task-75"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-76"]:checked) #overallbar [data-task="task-76"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-76"]:checked) [data-task="task-76"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-77"]:checked) #overallbar [data-task="task-77"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-77"]:checked) [data-task="task-77"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-78"]:checked) #overallbar [data-task="task-78"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-78"]:checked) [data-task="task-78"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-79"]:checked) #overallbar [data-task="task-79"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-79"]:checked) [data-task="task-79"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-80"]:checked) #overallbar [data-task="task-80"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-80"]:checked) [data-task="task-80"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-81"]:checked) #overallbar [data-task="task-81"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-81"]:checked) [data-task="task-81"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-82"]:checked) #overallbar [data-task="task-82"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-82"]:checked) [data-task="task-82"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-83"]:checked) #overallbar [data-task="task-83"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-83"]:checked) [data-task="task-83"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-84"]:checked) #overallbar [data-task="task-84"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-84"]:checked) [data-task="task-84"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-85"]:checked) #overallbar [data-task="task-85"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-85"]:checked) [data-task="task-85"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-86"]:checked) #overallbar [data-task="task-86"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-86"]:checked) [data-task="task-86"].phase-seg{background:#1f4e79 !important;}body:has(input.task[data-id="task-87"]:checked) #overallbar [data-task="task-87"]{background:#1f4e79 !important;}body:has(input.task[data-id="task-87"]:checked) [data-task="task-87"].phase-seg{background:#1f4e79 !important;}
+</style>
+
+<style>
+.yt-link{display:inline-block;margin:5px 4px 2px 0;padding:5px 9px;border-radius:7px;background:#e8f1f8;color:#1f4e79;text-decoration:none;font-weight:600;font-size:.9em;white-space:nowrap;}
+.yt-link:active{background:#d5e5f1;}
+</style>
+
+<style>
+.legal-section{margin-top:28px;padding:18px;border-top:1px solid #d9dee5;background:#f8fafc;border-radius:12px}
+.legal-section h2{font-size:1.15rem;margin:0 0 10px}
+.legal-section h3{font-size:1rem;margin:18px 0 6px}
+.legal-section p,.legal-section li{font-size:.9rem;line-height:1.55}
+.legal-section ul{padding-left:20px}
+.legal-section a{color:#1f4e79;text-decoration:underline}
+.legal-note{padding:10px 12px;background:#fff;border-left:4px solid #1f4e79;border-radius:6px;margin:10px 0}
+</style>
+
+
+<style>
+.legal-section{
+  color:#24303f !important;
+  background:#f8fafc !important;
+  margin:28px 24px 40px !important;
+  padding:22px !important;
+  border:1px solid #d9dee5 !important;
+  border-radius:14px !important;
+  box-sizing:border-box;
+}
+.legal-section h2,
+.legal-section h3,
+.legal-section summary,
+.legal-section p,
+.legal-section li{
+  color:#24303f !important;
+}
+.legal-section summary{
+  cursor:pointer;
+  font-weight:700;
+  padding:10px 0;
+}
+.legal-section a{color:#1f4e79 !important;}
+.legal-section .legal-note{
+  color:#24303f !important;
+  background:#eef5fb !important;
+}
+</style>
+
+</head>
+<body>
+<header><main><h1>Geografie Klasse 6</h1><p>Wöchentlicher Lernplan · Schuljahr 2026/27</p>
+</main></header>
+<main>
+<section class="dashboard">
+<div class="stat"><div class="label">Gesamtfortschritt</div><div class="value">Fortschritt</div><div class="bar segmented overall" id="overallbar"><span class="segfill" id="overall-segments"><i class="overall-seg" data-task="task-0"></i><i class="overall-seg" data-task="task-1"></i><i class="overall-seg" data-task="task-2"></i><i class="overall-seg" data-task="task-3"></i><i class="overall-seg" data-task="task-4"></i><i class="overall-seg" data-task="task-5"></i><i class="overall-seg" data-task="task-6"></i><i class="overall-seg" data-task="task-7"></i><i class="overall-seg" data-task="task-8"></i><i class="overall-seg" data-task="task-9"></i><i class="overall-seg" data-task="task-10"></i><i class="overall-seg" data-task="task-11"></i><i class="overall-seg" data-task="task-12"></i><i class="overall-seg" data-task="task-13"></i><i class="overall-seg" data-task="task-14"></i><i class="overall-seg" data-task="task-15"></i><i class="overall-seg" data-task="task-16"></i><i class="overall-seg" data-task="task-17"></i><i class="overall-seg" data-task="task-18"></i><i class="overall-seg" data-task="task-19"></i><i class="overall-seg" data-task="task-20"></i><i class="overall-seg" data-task="task-21"></i><i class="overall-seg" data-task="task-22"></i><i class="overall-seg" data-task="task-23"></i><i class="overall-seg" data-task="task-24"></i><i class="overall-seg" data-task="task-25"></i><i class="overall-seg" data-task="task-26"></i><i class="overall-seg" data-task="task-27"></i><i class="overall-seg" data-task="task-28"></i><i class="overall-seg" data-task="task-29"></i><i class="overall-seg" data-task="task-30"></i><i class="overall-seg" data-task="task-31"></i><i class="overall-seg" data-task="task-32"></i><i class="overall-seg" data-task="task-33"></i><i class="overall-seg" data-task="task-34"></i><i class="overall-seg" data-task="task-35"></i><i class="overall-seg" data-task="task-36"></i><i class="overall-seg" data-task="task-37"></i><i class="overall-seg" data-task="task-38"></i><i class="overall-seg" data-task="task-39"></i><i class="overall-seg" data-task="task-40"></i><i class="overall-seg" data-task="task-41"></i><i class="overall-seg" data-task="task-42"></i><i class="overall-seg" data-task="task-43"></i><i class="overall-seg" data-task="task-44"></i><i class="overall-seg" data-task="task-45"></i><i class="overall-seg" data-task="task-46"></i><i class="overall-seg" data-task="task-47"></i><i class="overall-seg" data-task="task-48"></i><i class="overall-seg" data-task="task-49"></i><i class="overall-seg" data-task="task-50"></i><i class="overall-seg" data-task="task-51"></i><i class="overall-seg" data-task="task-52"></i><i class="overall-seg" data-task="task-53"></i><i class="overall-seg" data-task="task-54"></i><i class="overall-seg" data-task="task-55"></i><i class="overall-seg" data-task="task-56"></i><i class="overall-seg" data-task="task-57"></i><i class="overall-seg" data-task="task-58"></i><i class="overall-seg" data-task="task-59"></i><i class="overall-seg" data-task="task-60"></i><i class="overall-seg" data-task="task-61"></i><i class="overall-seg" data-task="task-62"></i><i class="overall-seg" data-task="task-63"></i><i class="overall-seg" data-task="task-64"></i><i class="overall-seg" data-task="task-65"></i><i class="overall-seg" data-task="task-66"></i><i class="overall-seg" data-task="task-67"></i><i class="overall-seg" data-task="task-68"></i><i class="overall-seg" data-task="task-69"></i><i class="overall-seg" data-task="task-70"></i><i class="overall-seg" data-task="task-71"></i><i class="overall-seg" data-task="task-72"></i><i class="overall-seg" data-task="task-73"></i><i class="overall-seg" data-task="task-74"></i><i class="overall-seg" data-task="task-75"></i><i class="overall-seg" data-task="task-76"></i><i class="overall-seg" data-task="task-77"></i><i class="overall-seg" data-task="task-78"></i><i class="overall-seg" data-task="task-79"></i><i class="overall-seg" data-task="task-80"></i><i class="overall-seg" data-task="task-81"></i><i class="overall-seg" data-task="task-82"></i><i class="overall-seg" data-task="task-83"></i><i class="overall-seg" data-task="task-84"></i><i class="overall-seg" data-task="task-85"></i><i class="overall-seg" data-task="task-86"></i><i class="overall-seg" data-task="task-87"></i></span></div>
+<div class="stat"><div class="label">Zeitlicher Fortschritt</div><div class="value" id="time">0 %</div><div class="bar"><i id="timebar"></i></div><div class="label">05.10.2026 – 09.07.2027</div></div>
+<div class="stat"><div class="label">Lernzeit pro Woche</div><div class="value">45 Min.</div><div class="label">ca. 30 Min. Pflichtteil + 15 Min. Vertiefung</div></div>
+</div></details>
+<div class="controls">
+<button class="primary" onclick="currentWeek()">Aktuelle Woche</button>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})">Nach oben</button>
+<button onclick="resetAll()">Fortschritt löschen</button>
+</div>
+<div class="notice"><strong>Hinweis:</strong> Die Checkboxen speichern den Lernfortschritt auf diesem Gerät. Die Ferien sind lernfreie Zeiten. Die 15-Minuten-Vertiefung ist als Anwendung, Wiederholung oder Skizze gedacht.</div>
+<div id="content"><details class="phase"><summary class="phase-summary"><div class="phase-title"><h2>1. Europa im Überblick</h2><p>05.10.–09.11.2026 · TERRA 6 S. 4–20 · Arbeitsheft S. 1–2 und 12–13</p></div><div class="phase-summary-pct"><span>Fortschritt</span><strong>Fortschritt</strong><div class="bar segmented"><span class="segfill"><i class="phase-seg" data-task="task-0"></i><i class="phase-seg" data-task="task-1"></i><i class="phase-seg" data-task="task-2"></i><i class="phase-seg" data-task="task-3"></i><i class="phase-seg" data-task="task-4"></i><i class="phase-seg" data-task="task-5"></i><i class="phase-seg" data-task="task-6"></i><i class="phase-seg" data-task="task-7"></i><i class="phase-seg" data-task="task-8"></i><i class="phase-seg" data-task="task-9"></i><i class="phase-seg" data-task="task-10"></i><i class="phase-seg" data-task="task-11"></i></span></div></summary><div class="phase-body"></div>
+<article class="week" data-date="05.10.2026">
+<div class="week-date">05.10.2026</div><h3>Europa räumlich einordnen</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-0" onclick="toggleTask(this)"><span>TERRA 6 S. 4–8 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-1" onclick="toggleTask(this)"><span>Europa auf der Weltkarte finden und Grenzen Europas kennenlernen.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-2" onclick="toggleTask(this)"><span>Großlandschaften als erste Orientierung erfassen.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Stumme Karte: Atlantik, Mittelmeer, Nordsee, Ostsee, Schwarzes Meer sowie Europa und Asien eintragen.</p></div>
+</div></article><article class="week" data-date="26.10.2026">
+<div class="week-date">26.10.2026</div><h3>Inseln, Halbinseln und Gewässer</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-3" onclick="toggleTask(this)"><span>TERRA 6 S. 9–13 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-4" onclick="toggleTask(this)"><span>Wichtige Inseln, Halbinseln und Meere Europas kennenlernen.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-5" onclick="toggleTask(this)"><span>Arbeitsheft S. 1–2 bearbeiten.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Auf einer Europakarte fünf Inseln und fünf Halbinseln finden und ihre Lage beschreiben.</p></div>
+</div></article><article class="week" data-date="02.11.2026">
+<div class="week-date">02.11.2026</div><h3>EU und Bevölkerung</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-6" onclick="toggleTask(this)"><span>TERRA 6 S. 14–17 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-7" onclick="toggleTask(this)"><span>Grundidee der Europäischen Union kennenlernen.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-8" onclick="toggleTask(this)"><span>Bevölkerungsverteilung und Bevölkerungsdichte unterscheiden.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Eine Karte zur Bevölkerungsdichte betrachten: Wo leben viele bzw. wenige Menschen? Zwei mögliche Gründe notieren.</p></div>
+</div></article><article class="week" data-date="09.11.2026">
+<div class="week-date">09.11.2026</div><h3>Europa als Kulturraum</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-9" onclick="toggleTask(this)"><span>TERRA 6 S. 18–20 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-10" onclick="toggleTask(this)"><span>Sprachen, Lebensweisen, Sitten und Gebräuche betrachten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-11" onclick="toggleTask(this)"><span>Arbeitsheft S. 12–13 bearbeiten.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Ein europäisches Land auswählen und drei Besonderheiten beschreiben. Eine Gemeinsamkeit und einen Unterschied zu Deutschland nennen.</p></div>
+</div></article></div></details><details class="phase"><summary class="phase-summary"><div class="phase-title"><h2>2. Klima und Vegetation Europas</h2><p>16.11.–14.12.2026 · TERRA 6 S. 22–40 · Arbeitsheft S. 4–6</p></div><div class="phase-summary-pct"><span>Fortschritt</span><strong>Fortschritt</strong><div class="bar segmented"><span class="segfill"><i class="phase-seg" data-task="task-12"></i><i class="phase-seg" data-task="task-13"></i><i class="phase-seg" data-task="task-14"></i><i class="phase-seg" data-task="task-15"></i><i class="phase-seg" data-task="task-16"></i><i class="phase-seg" data-task="task-17"></i><i class="phase-seg" data-task="task-18"></i><i class="phase-seg" data-task="task-19"></i><i class="phase-seg" data-task="task-20"></i><i class="phase-seg" data-task="task-21"></i><i class="phase-seg" data-task="task-22"></i><i class="phase-seg" data-task="task-23"></i><i class="phase-seg" data-task="task-24"></i><i class="phase-seg" data-task="task-25"></i></span></div></summary><div class="phase-body"></div>
+<article class="week" data-date="16.11.2026">
+<div class="week-date">16.11.2026</div><h3>Beleuchtungszonen und Polartag/Polarnacht</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-12" onclick="toggleTask(this)"><span>TERRA 6 S. 22–25 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-13" onclick="toggleTask(this)"><span>Polarzone, gemäßigte Zone und Tropenzone kennenlernen.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-14" onclick="toggleTask(this)"><span>Entstehung von Polartag und Polarnacht nachvollziehen.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Skizze der Erde zeichnen und erklären, warum es an den Polen Polartag bzw. Polarnacht gibt.</p></div>
+</div></article><article class="week" data-date="23.11.2026">
+<div class="week-date">23.11.2026</div><h3>Klima in Europa</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-15" onclick="toggleTask(this)"><span>TERRA 6 S. 26–30 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-16" onclick="toggleTask(this)"><span>Veränderung von Temperatur und Niederschlag von Nord nach Süd betrachten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-17" onclick="toggleTask(this)"><span>Klimazonen nach Neef kennenlernen.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Den Satz „Je weiter man in Europa nach Süden kommt, desto …“ sinnvoll vervollständigen und begründen.</p></div>
+</div></article><article class="week" data-date="30.11.2026">
+<div class="week-date">30.11.2026</div><h3>Golfstrom und Relief</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-18" onclick="toggleTask(this)"><span>TERRA 6 S. 31–34 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-19" onclick="toggleTask(this)"><span>Einfluss des Golfstroms und des Reliefs auf das Klima verstehen.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Zwei europäische Orte vergleichen: Wo ist das Klima milder bzw. kälter? Eine begründete Vermutung formulieren.</p></div>
+</div></article><article class="week" data-date="07.12.2026">
+<div class="week-date">07.12.2026</div><h3>Vegetationszonen</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-20" onclick="toggleTask(this)"><span>TERRA 6 S. 35–38 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-21" onclick="toggleTask(this)"><span>Tundra, borealer Nadelwald, Laub-/Mischwald und Hartlaubgewächse kennenlernen.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-22" onclick="toggleTask(this)"><span>Zusammenhang zwischen Klima und Vegetation herausarbeiten.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Kausalkette zeichnen: Klima → Temperatur/Niederschlag → Vegetation.</p></div>
+</div></article><article class="week" data-date="14.12.2026">
+<div class="week-date">14.12.2026</div><h3>Klimadiagramme auswerten</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-23" onclick="toggleTask(this)"><span>TERRA 6 S. 39–40 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-24" onclick="toggleTask(this)"><span>Arbeitsheft S. 4–6 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-25" onclick="toggleTask(this)"><span>Temperatur, Niederschlag, Jahresverlauf sowie humid/arid unterscheiden.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Ein Klimadiagramm auswerten: wärmster/kältester Monat, Niederschlagsverteilung und klimatischer Charakter.</p></div>
+</div></article></div></details><details class="phase"><summary class="phase-summary"><div class="phase-title"><h2>3. Im Norden Europas</h2><p>04.01.–01.02.2027 · TERRA 6 S. 42–68 · Arbeitsheft S. 7–10</p></div><div class="phase-summary-pct"><span>Fortschritt</span><strong>Fortschritt</strong><div class="bar segmented"><span class="segfill"><i class="phase-seg" data-task="task-26"></i><i class="phase-seg" data-task="task-27"></i><i class="phase-seg" data-task="task-28"></i><i class="phase-seg" data-task="task-29"></i><i class="phase-seg" data-task="task-30"></i><i class="phase-seg" data-task="task-31"></i><i class="phase-seg" data-task="task-32"></i><i class="phase-seg" data-task="task-33"></i><i class="phase-seg" data-task="task-34"></i><i class="phase-seg" data-task="task-35"></i><i class="phase-seg" data-task="task-36"></i><i class="phase-seg" data-task="task-37"></i><i class="phase-seg" data-task="task-38"></i><i class="phase-seg" data-task="task-39"></i><i class="phase-seg" data-task="task-40"></i><i class="phase-seg" data-task="task-41"></i></span></div></summary><div class="phase-body"></div>
+<article class="week" data-date="04.01.2027">
+<div class="week-date">04.01.2027</div><h3>Skandinavien und Baltikum</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-26" onclick="toggleTask(this)"><span>TERRA 6 S. 42–47 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-27" onclick="toggleTask(this)"><span>Staaten und Hauptstädte Skandinaviens und des Baltikums lernen.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-28" onclick="toggleTask(this)"><span>Lage und räumliche Gliederung sichern.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Stumme Karte: Skandinavien und Baltikum beschriften.</p></div>
+</div></article><article class="week" data-date="11.01.2027">
+<div class="week-date">11.01.2027</div><h3>Entstehung von Gletschern</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-29" onclick="toggleTask(this)"><span>TERRA 6 S. 48–54 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-30" onclick="toggleTask(this)"><span>Aufbau und Entstehung eines Gletschers bzw. Inlandeises verstehen.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-31" onclick="toggleTask(this)"><span>Schulvideo „Gletscherentstehung“ ansehen. <a class="yt-link" href="https://www.youtube.com/watch?v=yRMbR6DTwHA" target="_blank" rel="noopener noreferrer">▶ Video öffnen</a></span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Gletscherskizze erstellen und die Entstehung in vier bis fünf Schritten erklären.</p></div>
+</div></article><article class="week" data-date="18.01.2027">
+<div class="week-date">18.01.2027</div><h3>Glaziale Formen und glaziale Serie</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-32" onclick="toggleTask(this)"><span>TERRA 6 S. 55–60 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-33" onclick="toggleTask(this)"><span>Fjord, Fjell, Schäre und glaziale Serie kennenlernen.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-34" onclick="toggleTask(this)"><span>Schulvideo „Glaziale Serie“ ansehen. <a class="yt-link" href="https://www.youtube.com/watch?v=TSwOjINkAN4" target="_blank" rel="noopener noreferrer">▶ Video öffnen</a></span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Profilskizze der glazialen Serie zeichnen und beschriften.</p></div>
+</div></article><article class="week" data-date="25.01.2027">
+<div class="week-date">25.01.2027</div><h3>Löss und menschliche Nutzung</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-35" onclick="toggleTask(this)"><span>TERRA 6 S. 61–64 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-36" onclick="toggleTask(this)"><span>Entstehung und Bedeutung des Lössgürtels betrachten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-37" onclick="toggleTask(this)"><span>Bedeutung von Oberflächenformen für den Menschen untersuchen.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>In drei bis vier Sätzen erklären, warum Lössgebiete für Landwirtschaft interessant sind.</p></div>
+</div></article><article class="week" data-date="01.02.2027">
+<div class="week-date">01.02.2027</div><h3>Holz, Wirtschaft und Nachhaltigkeit</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-38" onclick="toggleTask(this)"><span>TERRA 6 S. 65–68 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-39" onclick="toggleTask(this)"><span>Arbeitsheft S. 7–10 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-40" onclick="toggleTask(this)"><span>Holzverarbeitung und Auswirkungen auf Wirtschaft, Architektur und Lebensweise betrachten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-41" onclick="toggleTask(this)"><span>Nachhaltigkeitsviereck anwenden.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Je einen Aspekt aus Wirtschaft, Umwelt, Gesellschaft und Zukunft zur Holznutzung notieren.</p></div>
+</div></article></div></details><details class="phase"><summary class="phase-summary"><div class="phase-title"><h2>4. Europa zwischen Atlantik und Ural / Metropolen</h2><p>22.02.–10.05.2027 · TERRA 6 S. 70–92 und 96–108 · Arbeitsheft S. 11, 14, 15</p></div><div class="phase-summary-pct"><span>Fortschritt</span><strong>Fortschritt</strong><div class="bar segmented"><span class="segfill"><i class="phase-seg" data-task="task-42"></i><i class="phase-seg" data-task="task-43"></i><i class="phase-seg" data-task="task-44"></i><i class="phase-seg" data-task="task-45"></i><i class="phase-seg" data-task="task-46"></i><i class="phase-seg" data-task="task-47"></i><i class="phase-seg" data-task="task-48"></i><i class="phase-seg" data-task="task-49"></i><i class="phase-seg" data-task="task-50"></i><i class="phase-seg" data-task="task-51"></i><i class="phase-seg" data-task="task-52"></i><i class="phase-seg" data-task="task-53"></i><i class="phase-seg" data-task="task-54"></i><i class="phase-seg" data-task="task-55"></i><i class="phase-seg" data-task="task-56"></i><i class="phase-seg" data-task="task-57"></i><i class="phase-seg" data-task="task-58"></i><i class="phase-seg" data-task="task-59"></i><i class="phase-seg" data-task="task-60"></i><i class="phase-seg" data-task="task-61"></i><i class="phase-seg" data-task="task-62"></i><i class="phase-seg" data-task="task-63"></i><i class="phase-seg" data-task="task-64"></i><i class="phase-seg" data-task="task-65"></i><i class="phase-seg" data-task="task-66"></i><i class="phase-seg" data-task="task-67"></i></span></div></summary><div class="phase-body"></div>
+<article class="week" data-date="22.02.2027">
+<div class="week-date">22.02.2027</div><h3>Räumliche Orientierung</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-42" onclick="toggleTask(this)"><span>TERRA 6 S. 70–75 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-43" onclick="toggleTask(this)"><span>Staaten, Hauptstädte und wichtige Landschaften einordnen.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Stumme Karte: zentrale Staaten, Atlantik, Ural und wichtige Landschaften eintragen.</p></div>
+</div></article><article class="week" data-date="01.03.2027">
+<div class="week-date">01.03.2027</div><h3>Klima von West nach Ost</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-44" onclick="toggleTask(this)"><span>TERRA 6 S. 76–80 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-45" onclick="toggleTask(this)"><span>Veränderung von Temperatur und Niederschlag von West nach Ost untersuchen.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-46" onclick="toggleTask(this)"><span>Klimatypen der gemäßigten Zone betrachten.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Westen – Mitte – Osten vergleichen: Welche Klimaveränderung erwartest du und warum?</p></div>
+</div></article><article class="week" data-date="08.03.2027">
+<div class="week-date">08.03.2027</div><h3>Klimadiagramme vergleichen</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-47" onclick="toggleTask(this)"><span>TERRA 6 S. 81–84 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-48" onclick="toggleTask(this)"><span>Arbeitsheft S. 11 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-49" onclick="toggleTask(this)"><span>Klimadiagramme vergleichen und auswerten.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Ein Diagramm selbstständig auswerten und mit einem zweiten vergleichen.</p></div>
+</div></article><article class="week" data-date="15.03.2027">
+<div class="week-date">15.03.2027</div><h3>Steppe und Vegetation</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-50" onclick="toggleTask(this)"><span>TERRA 6 S. 85–87 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-51" onclick="toggleTask(this)"><span>Anpassung der Vegetation an das Klima untersuchen.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-52" onclick="toggleTask(this)"><span>Veränderung der Vegetation durch den Menschen betrachten.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Kausalkette: Klima → Vegetation → Landwirtschaft → Veränderung durch den Menschen.</p></div>
+</div></article><article class="week" data-date="22.03.2027">
+<div class="week-date">22.03.2027</div><h3>Altindustrialisierte Räume</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-53" onclick="toggleTask(this)"><span>TERRA 6 S. 88–92 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-54" onclick="toggleTask(this)"><span>Mittelengland, Elsass-Lothringen und Oberschlesien kennenlernen.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Einen Raum auswählen und erklären, warum dort Industrie entstehen konnte.</p></div>
+</div></article><article class="week" data-date="05.04.2027">
+<div class="week-date">05.04.2027</div><h3>Metropolen: Paris, London, Moskau</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-55" onclick="toggleTask(this)"><span>TERRA 6 S. 96–101 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-56" onclick="toggleTask(this)"><span>Wirtschaftliche und kulturelle Bedeutung der drei Metropolen betrachten.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Für jede Stadt eine wirtschaftliche und eine kulturelle Funktion nennen.</p></div>
+</div></article><article class="week" data-date="12.04.2027">
+<div class="week-date">12.04.2027</div><h3>Niederlande: Küstenschutz und Neulandgewinnung</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-57" onclick="toggleTask(this)"><span>TERRA 6 S. 102–105 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-58" onclick="toggleTask(this)"><span>Deltaplan, Zuidersee-Projekt, Küstenschutz und Neulandgewinnung kennenlernen.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Skizze: Land – Wasser – Deich – gewonnenes Land.</p></div>
+</div></article><article class="week" data-date="19.04.2027">
+<div class="week-date">19.04.2027</div><h3>Satellitenbilder auswerten</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-59" onclick="toggleTask(this)"><span>TERRA 6 S. 106–108 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-60" onclick="toggleTask(this)"><span>Arbeitsheft S. 14–15 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-61" onclick="toggleTask(this)"><span>Das in der Schulübersicht genannte Material zu Satellitenbildern verwenden. <a class="yt-link" href="https://www.youtube.com/watch?v=IrZvWzv0as" target="_blank" rel="noopener noreferrer">▶ Video öffnen</a></span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Satellitenbild beschreiben: Was sehe ich? Wo? Woran erkenne ich es?</p></div>
+</div></article><article class="week" data-date="26.04.2027">
+<div class="week-date">26.04.2027</div><h3>Zusammenhänge sichern</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-62" onclick="toggleTask(this)"><span>Klima, Vegetation, Industrie, Metropolen und Küstenschutz wiederholen.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-63" onclick="toggleTask(this)"><span>Offene Aufgaben abschließen.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Eine Seite „Europa zwischen Atlantik und Ural – das Wichtigste“ mit fünf bis acht Kernaussagen erstellen.</p></div>
+</div></article><article class="week" data-date="03.05.2027">
+<div class="week-date">03.05.2027</div><h3>Transfer und Vergleich</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-64" onclick="toggleTask(this)"><span>Zwei Räume vergleichen, z. B. Mittelengland und Niederlande.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-65" onclick="toggleTask(this)"><span>Naturraum, Nutzung und menschliche Eingriffe gegenüberstellen.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Fünf-Satz-Vergleich: Naturraum → Nutzung → menschlicher Eingriff → Vorteil → Problem.</p></div>
+</div></article><article class="week" data-date="10.05.2027">
+<div class="week-date">10.05.2027</div><h3>Lernkontrolle Europa zwischen Atlantik und Ural</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-66" onclick="toggleTask(this)"><span>Gesamten Lernbereich wiederholen.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-67" onclick="toggleTask(this)"><span>Karte, Klimadiagramme, Industrie, Metropolen und Niederlande prüfen.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>10-Minuten-Selbsttest + stumme Karte.</p></div>
+</div></article></div></details><details class="phase"><summary class="phase-summary"><div class="phase-title"><h2>5. Im Alpenraum</h2><p>24.05.–07.06.2027 · TERRA 6 S. 112–128 · Arbeitsheft S. 16–18</p></div><div class="phase-summary-pct"><span>Fortschritt</span><strong>Fortschritt</strong><div class="bar segmented"><span class="segfill"><i class="phase-seg" data-task="task-68"></i><i class="phase-seg" data-task="task-69"></i><i class="phase-seg" data-task="task-70"></i><i class="phase-seg" data-task="task-71"></i><i class="phase-seg" data-task="task-72"></i><i class="phase-seg" data-task="task-73"></i><i class="phase-seg" data-task="task-74"></i><i class="phase-seg" data-task="task-75"></i></span></div></summary><div class="phase-body"></div>
+<article class="week" data-date="24.05.2027">
+<div class="week-date">24.05.2027</div><h3>Lage und Gliederung der Alpen</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-68" onclick="toggleTask(this)"><span>TERRA 6 S. 112–116 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-69" onclick="toggleTask(this)"><span>Lage, Gliederung, Staaten und Hauptstädte einordnen.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Alpenkarte beschriften und wichtige Alpenstaaten sichern.</p></div>
+</div></article><article class="week" data-date="31.05.2027">
+<div class="week-date">31.05.2027</div><h3>Höhenstufen und Vegetation</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-70" onclick="toggleTask(this)"><span>TERRA 6 S. 117–121 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-71" onclick="toggleTask(this)"><span>Zusammenhang Höhe → Temperatur → Vegetation verstehen.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Höhenprofil zeichnen und Vegetationsstufen eintragen.</p></div>
+</div></article><article class="week" data-date="07.06.2027">
+<div class="week-date">07.06.2027</div><h3>Gletscher, Tourismus und Verkehr</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-72" onclick="toggleTask(this)"><span>TERRA 6 S. 122–128 und Arbeitsheft S. 16–18 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-73" onclick="toggleTask(this)"><span>Gletscher in den Alpen mit Nordeuropa vergleichen.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-74" onclick="toggleTask(this)"><span>Videos „Massentourismus“ und „Bergrettung“ ansehen: <a class="yt-link" href="https://www.youtube.com/watch?v=62mj6pHUCl0" target="_blank" rel="noopener noreferrer">▶ Massentourismus</a> <a class="yt-link" href="https://www.youtube.com/watch?v=RfFZGJfapV0" target="_blank" rel="noopener noreferrer">▶ Bergrettung</a></span></label></li><li><label><input type="checkbox" class="task" data-id="task-75" onclick="toggleTask(this)"><span>Tourismus, Verkehrsträger, Verkehrsbauten und Transitverkehr betrachten.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Erklären: Warum ist der Alpenraum für den europäischen Verkehr wichtig und welche Folgen kann Transitverkehr haben?</p></div>
+</div></article></div></details><details class="phase"><summary class="phase-summary"><div class="phase-title"><h2>6. Im Süden Europas</h2><p>14.06.–05.07.2027 · TERRA 6 S. 132–152 · Arbeitsheft S. 19–20</p></div><div class="phase-summary-pct"><span>Fortschritt</span><strong>Fortschritt</strong><div class="bar segmented"><span class="segfill"><i class="phase-seg" data-task="task-76"></i><i class="phase-seg" data-task="task-77"></i><i class="phase-seg" data-task="task-78"></i><i class="phase-seg" data-task="task-79"></i><i class="phase-seg" data-task="task-80"></i><i class="phase-seg" data-task="task-81"></i><i class="phase-seg" data-task="task-82"></i><i class="phase-seg" data-task="task-83"></i><i class="phase-seg" data-task="task-84"></i><i class="phase-seg" data-task="task-85"></i><i class="phase-seg" data-task="task-86"></i><i class="phase-seg" data-task="task-87"></i></span></div></summary><div class="phase-body"></div>
+<article class="week" data-date="14.06.2027">
+<div class="week-date">14.06.2027</div><h3>Südeuropa: Topografie und Mittelmeerraum</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-76" onclick="toggleTask(this)"><span>TERRA 6 S. 132–137 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-77" onclick="toggleTask(this)"><span>Staaten, Hauptstädte, Landschaften und Gewässer einordnen.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Stumme Karte des Mittelmeerraums beschriften.</p></div>
+</div></article><article class="week" data-date="21.06.2027">
+<div class="week-date">21.06.2027</div><h3>Karst und Landschaftsformen</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-78" onclick="toggleTask(this)"><span>TERRA 6 S. 138–140 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-79" onclick="toggleTask(this)"><span>Schulvideo zur Karstentstehung ansehen. <a class="yt-link" href="https://www.youtube.com/watch?v=UcdNi_PCIAE" target="_blank" rel="noopener noreferrer">▶ Video öffnen</a></span></label></li><li><label><input type="checkbox" class="task" data-id="task-80" onclick="toggleTask(this)"><span>Entstehung von Karstformen nachvollziehen.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Skizze zur Karstentstehung erstellen und den Vorgang in eigenen Worten erklären.</p></div>
+</div></article><article class="week" data-date="28.06.2027">
+<div class="week-date">28.06.2027</div><h3>Vulkanismus und Erdbeben</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-81" onclick="toggleTask(this)"><span>TERRA 6 S. 141–146 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-82" onclick="toggleTask(this)"><span>Schulvideo zum Vulkanismus ansehen. <a class="yt-link" href="https://www.youtube.com/watch?v=UipPv3GnkQ" target="_blank" rel="noopener noreferrer">▶ Video öffnen</a></span></label></li><li><label><input type="checkbox" class="task" data-id="task-83" onclick="toggleTask(this)"><span>Aufbau eines Schichtvulkans, Vulkanausbruch und Erdbeben betrachten.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Schichtvulkan zeichnen und beschriften; einen Vulkanausbruch in fünf Schritten erklären.</p></div>
+</div></article><article class="week" data-date="05.07.2027">
+<div class="week-date">05.07.2027</div><h3>Landwirtschaft und Tourismus in Südeuropa</h3>
+<div class="boxes">
+<div class="box"><h4>30 Minuten · Pflichtteil</h4><ul><li><label><input type="checkbox" class="task" data-id="task-84" onclick="toggleTask(this)"><span>TERRA 6 S. 147–152 bearbeiten. <a class="yt-link" href="https://www.youtube.com/watch?v=UgJLkbijmtA" target="_blank" rel="noopener noreferrer">▶ Südeuropa-Überblick</a></span></label></li><li><label><input type="checkbox" class="task" data-id="task-85" onclick="toggleTask(this)"><span>Arbeitsheft S. 19–20 bearbeiten.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-86" onclick="toggleTask(this)"><span>Bewässerungsfeldbau, Trockenfeldbau, Sonderkulturen und Regenfeldbau unterscheiden.</span></label></li><li><label><input type="checkbox" class="task" data-id="task-87" onclick="toggleTask(this)"><span>Tourismus im Mittelmeerraum mit dem Alpenraum vergleichen.</span></label></li></ul></div>
+<div class="box"><h4>15 Minuten · Vertiefung</h4><p>Tabelle mit Gemeinsamkeiten und Unterschieden von Alpen- und Mittelmeertourismus erstellen.</p></div>
+</div></article></div></details></div>
+<section class="holidays"><h2>Ferienzeiten</h2><div class="holiday"><strong>Herbstferien</strong><span>12.10.–23.10.2026 · lernfreie Zeit</span></div><div class="holiday"><strong>Weihnachtsferien</strong><span>23.12.2026–02.01.2027 · lernfreie Zeit</span></div><div class="holiday"><strong>Winterferien</strong><span>08.02.–19.02.2027 · lernfreie Zeit</span></div><div class="holiday"><strong>Osterferien</strong><span>26.03.–02.04.2027 · lernfreie Zeit</span></div><div class="holiday"><strong>Pfingstferien</strong><span>15.05.–18.05.2027 · lernfreie Zeit</span></div></div></details>
+<footer>Neutraler Lernplan zur Begleitung des selbstständigen Lernens.</footer>
+</main>
+<script>
+(function(){
+  const KEY="geo6_2026_27_ios_final";
+  const boxes=[...document.querySelectorAll("input.task")];
+  function read(){try{return JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){return {}}}
+  function update(){
+    const done=boxes.filter(b=>b.checked).length, total=boxes.length, p=total?Math.round(done/total*100):0;
+    const o=document.getElementById("overall"); if(o)o.textContent=p+" %";
+    const d=document.getElementById("detail"); if(d)d.textContent=done+" von "+total+" Lerninhalten erledigt";
+    document.querySelectorAll(".phase").forEach(ph=>{
+      const b=[...ph.querySelectorAll("input.task")], d=b.filter(x=>x.checked).length, q=b.length?Math.round(d/b.length*100):0;
+      const strong=ph.querySelector(".phase-pct strong"); if(strong)strong.textContent=q+" %";
+      ph.querySelectorAll("label").forEach(l=>{const x=l.querySelector("input.task"); if(x)l.classList.toggle("done",x.checked)});
+    });
+    const start=new Date("2026-10-05T00:00:00"), end=new Date("2027-07-09T23:59:59"), now=new Date();
+    const tp=Math.max(0,Math.min(100,(now-start)/(end-start)*100));
+    const t=document.getElementById("time"); if(t)t.textContent=Math.round(tp)+" %";
+    const tb=document.getElementById("timebar"); if(tb)tb.style.width=tp+"%";
+  }
+  window.toggleTask=function(b){
+    try{const s=read();s[b.dataset.id]=b.checked;localStorage.setItem(KEY,JSON.stringify(s));}catch(e){}
+    update();
+  };
+  window.resetAll=function(){
+    if(confirm("Gespeicherten Lernfortschritt auf diesem Gerät löschen?")){
+      try{localStorage.removeItem(KEY)}catch(e){}
+      boxes.forEach(b=>b.checked=false); update();
+    }
+  };
+  window.currentWeek=function(){
+    const now=new Date(); let found=null;
+    document.querySelectorAll(".week[data-date]").forEach(w=>{
+      const d=w.dataset.date.split("."),dt=new Date(d[2]+"-"+d[1]+"-"+d[0]+"T12:00:00");
+      if(now>=dt)found=w;
+    });
+    if(found){found.scrollIntoView({behavior:"smooth",block:"center"});found.style.outline="3px solid rgba(31,78,121,.25)";setTimeout(()=>found.style.outline="",1200);}
+  };
+  const s=read(); boxes.forEach(b=>{b.checked=!!s[b.dataset.id];}); update();
+  document.documentElement.classList.add("js-ok");
+})();
+</script>
+
+<script>
+(function () {
+  var KEY = "geo6_2026_27_progress_v5";
+
+  function boxes() {
+    return Array.prototype.slice.call(document.querySelectorAll("input.task"));
+  }
+
+  function save() {
+    try {
+      var state = {};
+      boxes().forEach(function (b) {
+        state[b.getAttribute("data-id")] = b.checked;
+      });
+      localStorage.setItem(KEY, JSON.stringify(state));
+    } catch (e) {}
+  }
+
+  function update() {
+    var all = boxes();
+    var done = all.filter(function (b) { return b.checked; }).length;
+    var pct = all.length ? Math.round(done / all.length * 100) : 0;
+
+    var overall = document.getElementById("overall");
+    if (overall) overall.textContent = pct + " %";
+
+    var overallBar = document.querySelectorAll("#overallbar i.overall-seg");
+    Array.prototype.forEach.call(overallBar, function (seg, i) {
+      seg.style.background = i < done ? "#1f4e79" : "#dfe4e9";
+    });
+
+    document.querySelectorAll("details.phase").forEach(function (phase) {
+      var pboxes = Array.prototype.slice.call(phase.querySelectorAll("input.task"));
+      var pdone = pboxes.filter(function (b) { return b.checked; }).length;
+      var ppct = pboxes.length ? Math.round(pdone / pboxes.length * 100) : 0;
+
+      var strong = phase.querySelector(".phase-summary-pct strong");
+      if (strong) strong.textContent = ppct + " %";
+
+      var segs = phase.querySelectorAll(".phase-seg");
+      Array.prototype.forEach.call(segs, function (seg) {
+        var id = seg.getAttribute("data-task");
+        var b = phase.querySelector('input.task[data-id="' + id + '"]');
+        seg.style.background = (b && b.checked) ? "#1f4e79" : "#dfe4e9";
+      });
+    });
+
+    document.querySelectorAll("label").forEach(function (label) {
+      var b = label.querySelector("input.task");
+      if (b) label.classList.toggle("done", b.checked);
+    });
+
+    var detail = document.getElementById("detail");
+    if (detail) detail.textContent = done + " von " + all.length + " Lerninhalten erledigt";
+  }
+
+  window.toggleTask = function (b) {
+    update();
+    save();
+  };
+
+  window.resetAll = function () {
+    boxes().forEach(function (b) { b.checked = false; });
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    update();
+  };
+
+  function restore() {
+    try {
+      var state = JSON.parse(localStorage.getItem(KEY) || "{}");
+      boxes().forEach(function (b) {
+        var id = b.getAttribute("data-id");
+        if (Object.prototype.hasOwnProperty.call(state, id)) {
+          b.checked = !!state[id];
+        }
+      });
+    } catch (e) {}
+    update();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", restore);
+  } else {
+    restore();
+  }
+})();
+</script>
+
+<section class="legal-section" id="rechtliches">
+  <h2>Rechtliche Informationen</h2>
+
+  <div class="legal-note">
+    <strong>Hinweis:</strong> Diese Website ist ein privates, nicht kommerzielles
+    Lernhilfeangebot für Eltern und Schülerinnen und Schüler der 6. Klasse.
+    Sie steht in keiner offiziellen Verbindung zu einer Schule, dem Freistaat Sachsen,
+    dem Schulträger oder dem Verlag des verwendeten Lehrwerks.
+  </div>
+
+  <details>
+    <summary><strong>Impressum</strong></summary>
+    <h3>Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG)</h3>
+    <p>
+      <strong>Verantwortlicher und Diensteanbieter:</strong><br>
+      Mirko Löffler<br>
+      Auf der Kirchwiese 9<br>
+      09125 Chemnitz<br>
+      Deutschland
+    </p>
+    <p>
+      <strong>Kontakt:</strong><br>
+      E-Mail: <span>mirko [at] mirko-löffler.de</span>
+    </p>
+    <p>
+      Diese Website wird ausschließlich privat und unentgeltlich betrieben.
+      Sie dient der Organisation und Unterstützung eines Lernfortschritts im Fach
+      Geografie für die 6. Klasse.
+    </p>
+    <p>
+      <strong>Hosting:</strong><br>
+      Die Website wird über GitHub Pages bereitgestellt. GitHub Pages ist ein
+      statischer Hostingdienst. Für den Betrieb der GitHub-Pages-Infrastruktur
+      gelten zusätzlich die Datenschutz- und Nutzungsbedingungen von GitHub.
+    </p>
+    <p>
+      <strong>Technischer Betrieb:</strong><br>
+      Die Website verwendet keine eigenen Analyse-, Werbe-, Tracking- oder
+      Kontaktformular-Dienste. Der Lernfortschritt kann ausschließlich lokal
+      im Browser des jeweiligen Endgeräts gespeichert werden.
+    </p>
+    <p>
+      <strong>Verantwortlichkeit für Inhalte:</strong><br>
+      Die Inhalte dieser privaten Lernhilfe wurden nach bestem Wissen zusammengestellt.
+      Sie ersetzen weder den Unterricht noch verbindliche schulische Vorgaben.
+      Für die Richtigkeit, Vollständigkeit und Aktualität wird keine Gewähr übernommen.
+    </p>
+    <p>
+      <strong>Externe Links:</strong><br>
+      Diese Website enthält Links zu externen Angeboten, insbesondere zu YouTube.
+      Die Links werden erst durch Anklicken aufgerufen; YouTube-Videos werden nicht
+      innerhalb dieser Website eingebettet.
+    </p>
+  </details>
+
+  <details>
+    <summary><strong>Datenschutzerklärung</strong></summary>
+
+    <h3>1. Verantwortlicher</h3>
+    <p>
+      Verantwortlicher im Sinne der Datenschutz-Grundverordnung (DSGVO) ist:<br><br>
+      Mirko Löffler<br>
+      Auf der Kirchwiese 9<br>
+      09125 Chemnitz<br>
+      Deutschland<br>
+      E-Mail: <span>mirko [at] mirko-löffler.de</span>
+    </p>
+
+    <h3>2. Umfang der Datenverarbeitung</h3>
+    <p>
+      Diese Website erhebt über die von mir bereitgestellte Lernfortschrittsfunktion
+      keine personenbezogenen Daten in einer eigenen Datenbank. Es werden keine
+      Nutzerkonten angelegt und kein Kontaktformular, Newsletter, Werbenetzwerk,
+      Analysewerkzeug oder sonstiges Tracking eingesetzt.
+    </p>
+
+    <h3>3. Lokale Speicherung des Lernfortschritts</h3>
+    <p>
+      Die Website kann den von der Nutzerin bzw. dem Nutzer gesetzten Lernfortschritt
+      lokal im Browser des verwendeten Endgeräts speichern (z. B. mittels
+      <code>localStorage</code>). Dabei werden ausschließlich technische
+      Kennzeichnungen des Lernfortschritts gespeichert, insbesondere der Status
+      einzelner Checkboxen. Diese Daten werden nicht von mir auf einem Server
+      gespeichert und nicht an mich übermittelt.
+    </p>
+    <p>
+      Die lokale Speicherung dient ausschließlich dazu, den Lernfortschritt bei
+      einer späteren Nutzung auf demselben Endgerät bzw. im selben Browser
+      wiederherzustellen. Die Daten können durch Löschen der Website-/Browserdaten
+      entfernt werden.
+    </p>
+
+    <h3>4. Rechtsgrundlage für die lokale Speicherung</h3>
+    <p>
+      Soweit für die lokale Speicherung oder den Zugriff auf bereits gespeicherte
+      Informationen eine Einwilligung erforderlich ist, wird diese nicht zu
+      anderen Zwecken verwendet. Die lokale Speicherung dient ausschließlich der
+      vom Nutzer ausdrücklich gewünschten Funktion der Lernfortschrittsanzeige.
+      Die rechtliche Einordnung richtet sich insbesondere nach § 25 TDDDG und
+      der DSGVO.
+    </p>
+
+    <h3>5. Hosting durch GitHub Pages</h3>
+    <p>
+      Diese Website wird über GitHub Pages von GitHub bereitgestellt. Beim Aufruf
+      einer GitHub-Pages-Website verarbeitet GitHub technische Daten. GitHub gibt
+      insbesondere an, dass die IP-Adresse von Besuchern zu Sicherheitszwecken
+      protokolliert und gespeichert wird. Diese Verarbeitung erfolgt durch GitHub
+      als Betreiber der Hosting-Infrastruktur und unterliegt den Datenschutz-
+      bestimmungen von GitHub.
+    </p>
+    <p>
+      Weitere Informationen finden sich in der
+      <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement"
+         target="_blank" rel="noopener noreferrer">Datenschutzerklärung von GitHub</a>.
+    </p>
+
+    <h3>6. Keine Analyse und kein Tracking</h3>
+    <p>
+      Auf dieser Website werden keine eigenen Analyse- oder Trackingdienste,
+      insbesondere kein Google Analytics, Matomo, Microsoft Clarity oder
+      vergleichbare Dienste eingesetzt.
+    </p>
+
+    <h3>7. YouTube-Links</h3>
+    <p>
+      Die auf dieser Website vorhandenen YouTube-Verweise sind ausschließlich
+      als externe Links ausgeführt. Es werden keine YouTube-Player in die Seite
+      eingebettet. Erst durch Anklicken eines Links wird das externe YouTube-
+      Angebot aufgerufen. Ab diesem Zeitpunkt gelten die Datenschutzbestimmungen
+      von YouTube bzw. Google.
+    </p>
+
+    <h3>8. Empfänger und Übermittlung</h3>
+    <p>
+      Eine Weitergabe von Lernfortschrittsdaten an Dritte erfolgt durch diese
+      Website nicht. Technische Daten können im Rahmen des Hostings durch GitHub
+      verarbeitet werden. Beim Aufruf eines externen YouTube-Angebots erfolgt
+      die weitere Verarbeitung durch den jeweiligen Anbieter.
+    </p>
+
+    <h3>9. Speicherdauer</h3>
+    <p>
+      Die lokal gespeicherten Lernfortschrittsdaten verbleiben grundsätzlich auf
+      dem jeweiligen Endgerät, bis die entsprechenden Browser-/Website-Daten
+      gelöscht werden oder die Website bzw. der Browser die Daten anderweitig
+      entfernt. Eine eigene serverseitige Speicherung durch den Betreiber dieser
+      Website findet nicht statt.
+    </p>
+
+    <h3>10. Rechte betroffener Personen</h3>
+    <p>
+      Soweit personenbezogene Daten durch den Verantwortlichen verarbeitet werden,
+      bestehen nach Maßgabe der DSGVO insbesondere Rechte auf Auskunft,
+      Berichtigung, Löschung, Einschränkung der Verarbeitung und – soweit die
+      gesetzlichen Voraussetzungen vorliegen – Widerspruch und Datenübertragbarkeit.
+      Betroffene können sich hierzu an den oben genannten Verantwortlichen wenden.
+    </p>
+
+    <h3>11. Beschwerderecht bei einer Datenschutzaufsichtsbehörde</h3>
+    <p>
+      Betroffene haben gemäß Art. 77 DSGVO das Recht, sich bei einer
+      Datenschutzaufsichtsbehörde zu beschweren. Für einen in Sachsen ansässigen
+      privaten Verantwortlichen ist grundsätzlich die
+      <strong>Sächsische Datenschutz- und Transparenzbeauftragte</strong>
+      zuständig:
+    </p>
+    <p>
+      Sächsische Datenschutz- und Transparenzbeauftragte<br>
+      Maternistraße 17<br>
+      01067 Dresden<br>
+      E-Mail: post@sdtb.sachsen.de<br>
+      Telefon: +49 351 85471-101<br>
+      <a href="https://www.datenschutz.sachsen.de/"
+         target="_blank" rel="noopener noreferrer">www.datenschutz.sachsen.de</a>
+    </p>
+
+    <h3>12. Datenschutzbeauftragter</h3>
+    <p>
+      Für den privaten, nicht kommerziellen Betrieb dieser kleinen Lernhilfe wird
+      kein Datenschutzbeauftragter benannt. Gesetzliche Pflichten zur Benennung
+      eines Datenschutzbeauftragten bleiben unberührt.
+    </p>
+  </details>
+
+  <details>
+    <summary><strong>Urheberrecht und Quellen</strong></summary>
+    <p>
+      Die Website wurde als private Lernhilfe erstellt. Die Lerninhalte orientieren
+      sich an den für die 6. Klasse bereitgestellten schulischen Unterlagen und
+      dem dort genannten TERRA-Lehrwerk.
+    </p>
+    <p>
+      Die auf dieser Seite verlinkten YouTube-Videos werden nicht kopiert oder
+      auf dieser Website gespeichert. Es handelt sich um externe Verweise auf
+      die jeweiligen Angebote.
+    </p>
+    <p>
+      Soweit Inhalte, Bezeichnungen oder Materialien Dritter verwendet oder
+      verlinkt werden, bleiben die Rechte der jeweiligen Rechteinhaber unberührt.
+    </p>
+  </details>
+
+  <details>
+    <summary><strong>Haftung für externe Links</strong></summary>
+    <p>
+      Diese Website enthält Links zu externen Websites Dritter. Auf deren Inhalte
+      und deren spätere Änderungen besteht kein Einfluss. Für die Inhalte der
+      verlinkten Seiten ist grundsätzlich der jeweilige Anbieter verantwortlich.
+      Zum Zeitpunkt der Verlinkung waren keine Rechtsverstöße erkennbar.
+    </p>
+  </details>
+
+  <details>
+    <summary><strong>Keine offizielle Schul- oder Verlagsseite</strong></summary>
+    <p>
+      Dieses Angebot ist ein privat erstelltes Lernhilfeprojekt. Es handelt sich
+      nicht um eine offizielle Website einer Schule, des Freistaates Sachsen,
+      einer Schulbehörde oder des Verlags des verwendeten Lehrwerks.
+    </p>
+  </details>
+
+  <p style="margin-top:18px;font-size:.78rem;color:#667085">
+    Stand: 20. September 2026
+  </p>
+</section>
+
+
+</body></html>
